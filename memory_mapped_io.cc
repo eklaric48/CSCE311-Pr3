@@ -1,4 +1,6 @@
 /*
+Code written and edited by John Andrews.
+
 This program reads in a text file using memory mapped File IO
 and counts the number of each character in the file by inserting 
 them into a map as a <char, int> pair.
@@ -14,11 +16,14 @@ them into a map as a <char, int> pair.
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
+#include <time.h>
 
 typedef std::map<char, int>::iterator MapIterator;
 
 int main(int argc, char *argv[])
 {
+	clock_t start = clock();
+	
 	if (argc != 2)
 	{
 		std::cout << "usage: ./Aprog <filepath>" << std::endl;
@@ -67,4 +72,9 @@ int main(int argc, char *argv[])
 	{
 		std::cout << "Char: " << mit->first << "\tCount: " << mit->second << std::endl;
 	}
+	
+	clock_t finish = clock();
+	double total_time = (double)(finish - start) / CLOCKS_PER_SEC;
+	
+	std::cout << "\nTotal time of execution: " << std::to_string(total_time) << " seconds" << std::endl;
 }

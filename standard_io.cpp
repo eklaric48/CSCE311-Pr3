@@ -1,18 +1,20 @@
 /*
+Code written and edited by Edmond Klaric.
+
 This program reads in a text file using standard File IO
 and counts the number of each character in the file by inserting 
 them into a map as a <char, int> pair.
 */
-#include <string.h>
-#include <fstream>
+
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <time.h>
 #include <map>
 #include <unistd.h>
 #include <iostream>
 
 #define MAXLINE 1500
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <fcntl.h>
 
 using std::cout;
 using std::endl;
@@ -21,6 +23,8 @@ typedef std::map<char, int>::iterator MapIterator;
 
 int main(int argc, char *argv[])
 {
+    clock_t start = clock();
+    
     if (argc != 2)
     {
         cout << "usage: ./Aprog <filepath>" << endl;
@@ -64,4 +68,9 @@ int main(int argc, char *argv[])
     {
         cout << "Char: " << mit->first << "\tCount: " << mit->second << endl;
     }
+    
+    clock_t finish = clock();
+    double total_time = (double)(finish - start) / CLOCKS_PER_SEC;
+    
+    cout << "\nTotal time of execution: " << std::to_string(total_time) << " seconds" << endl;
 }
