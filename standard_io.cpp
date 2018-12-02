@@ -9,6 +9,11 @@ them into a map as a <char, int> pair.
 #include <unistd.h>
 #include <iostream>
 
+#define MAXLINE 1500
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+
 using std::cout;
 using std::endl;
 
@@ -16,23 +21,27 @@ typedef std::map<char, int>::iterator MapIterator;
 
 int main(int argc, char *argv[])
 {
-	if (argc != 2)
-	{
-		cout << "usage: ./Aprog <filepath>" << endl;
-		exit(1);
-	}
-	
-    std::string fileName = argv[1];
-    std::ifstream myFile(fileName.c_str());
-    std::map<char, int> characters;
-    
-    std::string line;
-    
-    if (myFile.is_open())
+    if (argc != 2)
     {
-        while (getline(myFile,line))
+        cout << "usage: ./Aprog <filepath>" << endl;
+        exit(1);
+    }
+    
+    std::string fileName = argv[1];
+    
+    int fp = open(fileName.c_str(), O_RDONLY, S_IRUSR);
+    
+    std::map<char, int> characters;
+    char buf[MAXLINE];
+    
+    int incoming = read(fp,buf,MAXLINE);
+    char c;
+    while (incoming > 0)
+    {
+        for (int i = 0; i < incoming; ++i)
         {
-            for (char& c : line)
+            c = buf[i];
+            if (c != '\n')
             {
                 if (characters.count(c) == 0)
                 {
@@ -45,18 +54,14 @@ int main(int argc, char *argv[])
                 }
             }
         }
+        
+        incoming = read(fp,buf,MAXLINE);
     }
-    else
-    { 
-        cout << "Unable to open file." << endl;
-        exit(1);
-	}
-	
-	myFile.close();
+    
+    close(fp);
     
     for (MapIterator mit = characters.begin(); mit != characters.end(); mit++)
     {
         cout << "Char: " << mit->first << "\tCount: " << mit->second << endl;
     }
-    
 }

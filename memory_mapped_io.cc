@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	}
 	std::string fileName = argv[1];
 	
-	int fp = open(fileName.c_str(), O_RDWR, S_IRWXU);
+	int fp = open(fileName.c_str(), O_RDONLY, S_IRUSR);
 	
 	int ret;
 	long int file_size;
