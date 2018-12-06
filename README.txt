@@ -28,9 +28,12 @@ the character counts from.
 or it needs to be the name of a text file located in the same directory as the
 executable.
 
-NOTICE
-The reponses to the report questions are in the .pdf file within the submission
-folder.
+NOTICES
+1) The reponses to the report questions are in the .pdf file within the
+submission folder.
+2) The timing of each I/O is part of the programs. The memory mapped version
+was consistently faster than the standard I/O as expected due to the direct
+access to the page cache eliminating the need for the read() system call.
 
 CONTRIBUTIONS BY GROUP MEMBERS
 -memory mapped file I/O :: John Andrews
