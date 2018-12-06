@@ -3,6 +3,7 @@
 GROUP MEMBERS:
 John Andrews, jha2@email.sc.edu
 Edmond Klaric, eklaric@email.sc.edu
+Bryce Tant, bjtant@email.sc.edu
 
 PREREQUISITES:
 The programs in this project should be run on one of the lab machines in the
